@@ -92,6 +92,8 @@ Les ViewModels centralisent la logique.
 Les Repositories gèrent toutes les sources de données.
 
 L’application reste modulaire et extensible.
+
+
 Technologies utilisées
 
 Kotlin
