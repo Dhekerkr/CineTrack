@@ -47,45 +47,51 @@ une barre de recherche animée
 
 une interface moderne et responsive entièrement construite avec Jetpack Compose
 
-Architecture du projet
+Architecture du projet — MVVM
 
-L’application suit une architecture modulaire claire, organisée en trois couches :
+L’application suit une architecture MVVM (Model – View – ViewModel), recommandée par Google pour les applications Android modernes.
+Cette structure permet une séparation claire des responsabilités, une meilleure maintenabilité et un code plus testable.
 
-1. Couche Data
+1) Model (M) — Gestion des données
 
-Elle contient l’accès aux données :
+Cette couche regroupe tout ce qui concerne la récupération, le stockage et la transformation des données.
 
-appels à l’API TMDB avec Ktor Client
+API TMDB via Ktor Client
+Gère les appels réseau et la récupération des films, détails et castings.
 
-base de données Room (favoris et notes)
+Base de données Room
+Stocke localement les favoris et les notes attribuées par l’utilisateur.
 
-repositories qui centralisent la logique des sources de données
+Repositories
+(MovieRepository, RatingRepository)
+Servent d'intermédiaires entre les ViewModels et les sources de données (API + Room).
 
-2. Couche ViewModel
+2) ViewModel (VM) — Logique métier
 
-Elle regroupe la logique métier de l’application.
-Les ViewModels exposent les données sous forme de flux (StateFlow) à l’interface :
+Les ViewModels assurent la logique de l’application et exposent les données sous forme de StateFlow pour l’interface :
 
-MovieViewModel
+MovieViewModel — Films, recherches et détails
 
-FavoriteViewModel
+FavoriteViewModel — Gestion des favoris
 
-RatingViewModel
+RatingViewModel — Gestion et calcul des notes
 
-3. Couche UI (Jetpack Compose)
+Ils ne dépendent pas de la View et survivent aux changements de configuration.
 
-Elle comprend tous les écrans et la navigation :
+3) View (V) — Interface utilisateur avec Jetpack Compose
 
-HomeScreen
+Les écrans (HomeScreen, SearchScreen, DetailsScreen, FavoritesScreen) observent les flux d’état issus des ViewModels.
+Ils affichent les données, déclenchent des actions utilisateur, mais ne contiennent aucune logique métier.
 
-SearchScreen
+Résultat : une application propre, scalable et facile à maintenir
 
-DetailsScreen
+Les Views sont simples et réactives.
 
-FavoritesScreen
+Les ViewModels centralisent la logique.
 
-Navigation Compose est utilisé pour les transitions entre écrans.
+Les Repositories gèrent toutes les sources de données.
 
+L’application reste modulaire et extensible.
 Technologies utilisées
 
 Kotlin
