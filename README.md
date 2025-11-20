@@ -1,66 +1,70 @@
-README.md — CineTrack
-CineTrack
+CineTrack — Application Android
 
-Application Android moderne permettant de rechercher des films, consulter leurs détails, ajouter des favoris et attribuer une note personnelle.
-Développée avec Kotlin, Jetpack Compose, Ktor Client, et Room.
+CineTrack est une application Android moderne permettant de rechercher des films, consulter leurs informations, attribuer une note personnalisée et gérer une liste de favoris.
+Elle est développée en Kotlin avec Jetpack Compose, Ktor Client pour les requêtes réseau, et Room pour la persistance locale.
 
 Fonctionnalités principales
 Recherche de films
 
-L’application permet de rechercher n’importe quel film via l’API TheMovieDB.
-Les résultats apparaissent immédiatement avec leur affiche et leur résumé.
+L’application permet d’effectuer une recherche de films via l’API de TheMovieDB.
+Les résultats sont affichés instantanément avec l’affiche, le titre et un résumé.
 
 Détails d’un film
 
-Pour chaque film, l’écran détail présente :
+Chaque fiche film contient :
 
-L’affiche HD
+une image en haute définition
 
-Le titre
+le titre
 
-Le résumé
+la description
 
-La moyenne des notes données par l’utilisateur
+la note moyenne donnée par l’utilisateur
 
-Le casting
+le casting
 
-La possibilité d’ajouter/supprimer le film des favoris
+un bouton pour ajouter ou retirer le film des favoris
 
-La possibilité de donner une note (stockée localement)
+un système de notation de 1 à 5 (stocké localement)
 
 Gestion des favoris
 
-Le film peut être ajouté ou retiré des favoris.
-Tous les favoris sont visibles dans une page dédiée.
+L’utilisateur peut enregistrer des films dans une liste de favoris.
+Cette liste est disponible dans un écran dédié, avec possibilité de retirer un film à tout moment.
 
-Système de notation (local avec Room)
+Système de notation locale
 
-L’utilisateur peut attribuer une note de 1 à 5.
-La moyenne affichée est recalculée automatiquement.
+L’utilisateur peut attribuer une note à chaque film.
+Ces notes sont enregistrées en base de données Room et la moyenne est recalculée automatiquement lors de l’affichage des détails du film.
 
-Page d’accueil moderne
+Page d’accueil
 
-Suggestions de films populaires
+L’accueil propose :
 
-Barre de recherche animée
+des suggestions de films populaires
 
-Design moderne et responsive
+une barre de recherche animée
+
+une interface moderne et responsive entièrement construite avec Jetpack Compose
 
 Architecture du projet
 
-Le projet suit une architecture claire en trois couches :
+L’application suit une architecture modulaire claire, organisée en trois couches :
 
-1) Data Layer
+1. Couche Data
 
-Contient tout ce qui touche aux données :
+Elle contient l’accès aux données :
 
-API TMDB via Ktor Client
+appels à l’API TMDB avec Ktor Client
 
-Base locale Room : favoris + notes
+base de données Room (favoris et notes)
 
-Repositories servant d’intermédiaires
+repositories qui centralisent la logique des sources de données
 
-2) ViewModel Layer
+2. Couche ViewModel
+
+Elle regroupe la logique métier de l’application.
+Les ViewModels exposent les données sous forme de flux (StateFlow) à l’interface :
 
 MovieViewModel
 
@@ -68,11 +72,9 @@ FavoriteViewModel
 
 RatingViewModel
 
-Ils gèrent la logique métier et exposent des flux d’état (StateFlow) à l’UI.
+3. Couche UI (Jetpack Compose)
 
-3) UI Layer (Jetpack Compose)
-
-4 écrans principaux :
+Elle comprend tous les écrans et la navigation :
 
 HomeScreen
 
@@ -82,27 +84,34 @@ DetailsScreen
 
 FavoritesScreen
 
-L’application utilise Navigation Compose pour passer d’un écran à l’autre.
+Navigation Compose est utilisé pour les transitions entre écrans.
 
 Technologies utilisées
-Technologie	Rôle
-Kotlin	Langage principal
-Jetpack Compose	Interface moderne
-Ktor Client	Requêtes API
-Room	Base de données locale
-Navigation Compose	Transitions entre écrans
-Coil	Chargement d’images
-StateFlow / Coroutines	Gestion asynchrone
+
+Kotlin
+
+Jetpack Compose
+
+Ktor Client
+
+Room Database
+
+Navigation Compose
+
+Coil (chargement d’images)
+
+StateFlow & Coroutines
+
 Installation
 
-Cloner le projet
+Cloner le dépôt GitHub.
 
-Ajouter votre clé API TMDB dans MovieRepository
+Ajouter une clé TMDB valide dans le fichier APIServiceKtor ou dans la configuration réseau.
 
-Lancer sur un émulateur Android (SDK 26+)
+Lancer l’application sur un émulateur Android (SDK 26 ou supérieur).
 
-Build & Run
+Compiler et exécuter depuis Android Studio.
 
-Développeurs
+Auteur
 
 Projet réalisé par Dheker Kraiem dans le cadre du cours "Atelier Android"
